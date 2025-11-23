@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jenny - Confidente IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="bg-gray-900 text-white flex justify-center items-center h-screen">
+    <div id="chat-container" class="w-full max-w-lg h-[700px] bg-gray-800 rounded-2xl shadow-2xl flex flex-col p-4">
+        <div class="flex items-center p-4 border-b border-gray-700">
+            <img id="main-avatar" src="" class="w-12 h-12 rounded-full mr-4">
+            <div>
+                <h1 class="text-xl font-bold">Jenny</h1>
+                <p class="text-sm text-green-400">En ligne</p>
+            </div>
+        </div>
+        <div id="chat-box" class="flex-grow p-4 overflow-y-auto"></div>
+        <div id="user-input" class="p-4 bg-gray-900 rounded-b-2xl flex items-center">
+            <input type="text" id="message-input" placeholder="Écrivez votre message..." class="flex-grow bg-gray-700 rounded-full py-3 px-6 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500">
+            <input type="file" id="image-input" accept="image/*" class="hidden">
+            <button id="image-button" class="ml-4 text-gray-400 hover:text-pink-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            </button>
+            <input type="file" id="audio-input" accept="audio/*" class="hidden">
+            <button id="audio-button" class="ml-2 text-gray-400 hover:text-pink-500">
+                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+            </button>
+            <button id="send-button" class="ml-4 bg-pink-500 hover:bg-pink-600 rounded-full p-3 text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+            </button>
+        </div>
+    </div>
+    <div id="image-modal" class="modal hidden fixed z-50 left-0 top-0 w-full h-full bg-black bg-opacity-80 justify-center items-center">
+        <span class="close absolute top-4 right-8 text-white text-5xl font-bold cursor-pointer">&times;</span>
+        <img class="modal-content max-w-[90%] max-h-[90%] rounded-lg" id="modal-image">
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

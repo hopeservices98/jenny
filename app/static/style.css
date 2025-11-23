@@ -1,0 +1,19 @@
+/* Vous pouvez garder ce fichier pour des styles CSS personnalisés si nécessaire,
+   mais la plupart des styles proviennent maintenant de Tailwind CSS. */
+.modal {
+    display: none; /* Initialement masqué */
+}
+.modal.flex {
+    display: flex;
+}
+
+.chat-audio {
+    max-width: 100%;
+    margin-top: 5px;
+}
+
+.chat-image {
+    max-width: 100%;
+    border-radius: 15px;
+    margin-top: 5px;
+}

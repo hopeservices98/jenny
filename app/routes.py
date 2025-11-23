@@ -1,8 +1,6 @@
 from flask import current_app, request, jsonify, send_from_directory, render_template
 from . import db
 from .models import User
-import google.generativeai as genai
-from google.generativeai.types import HarmCategory, HarmBlockThreshold
 import random
 import os
 import uuid

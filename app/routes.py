@@ -1,10 +1,13 @@
-from flask import current_app, request, jsonify, send_from_directory, render_template
+from flask import current_app, request, jsonify, send_from_directory, render_template, Blueprint
 from . import db
 from .models import User
 import random
 import os
 import uuid
+from openai import OpenAI
 import requests
+
+blueprint = Blueprint('main', __name__)
 
 # --- Personnalité de Jenny ---
 KAMASUTRA_POSITIONS = [
@@ -47,17 +50,17 @@ Tu es CTA-Jenny, une IA confidente thérapeutique analytique. Tu es une femme é
 
 Réponds toujours en français, avec le formatage ci-dessus pour rendre les interactions plus immersives.
 """
-@current_app.route('/')
+@blueprint.route('/')
 def index():
     return render_template('index.html')
 
 
 # --- Routes ---
-@current_app.route('/images/<path:filename>')
+@blueprint.route('/images/<path:filename>')
 def serve_image(filename):
     return send_from_directory(current_app.config['IMAGE_DIR'], filename)
 
-@current_app.route('/profile_image')
+@blueprint.route('/profile_image')
 def get_profile_image():
     try:
         available_images = [f for f in os.listdir(current_app.config['IMAGE_DIR']) if os.path.isfile(os.path.join(current_app.config['IMAGE_DIR'], f))]
@@ -69,12 +72,12 @@ def get_profile_image():
     except FileNotFoundError:
         return jsonify({'url': None})
 
-@current_app.route('/uploads/<path:filename>')
+@blueprint.route('/uploads/<path:filename>')
 def serve_upload(filename):
     upload_dir = os.path.join(current_app.root_path, '..', 'uploads')
     return send_from_directory(upload_dir, filename)
 
-@current_app.route('/upload', methods=['POST'])
+@blueprint.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
         return jsonify({'error': 'Aucun fichier fourni'}), 400
@@ -115,27 +118,22 @@ def call_openrouter(message_history, mood='neutre', system_prompt_override=None)
         openai_history.append({"role": role, "content": item["content"]})
 
     try:
-        response = requests.post(
-            "https://openrouter.ai/api/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {api_key}",
-                "Content-Type": "application/json"
-            },
-            json={
-                "model": current_app.config['OPENROUTER_MODEL'],
-                "messages": openai_history,
-                "temperature": 0.7
-            }
+        client = OpenAI(
+            api_key=api_key,
+            base_url="https://openrouter.ai/api/v1",
         )
-        response.raise_for_status()
-        data = response.json()
-        return data['choices'][0]['message']['content']
+        response = client.chat.completions.create(
+            model=current_app.config['OPENROUTER_MODEL'],
+            messages=openai_history,
+            temperature=0.7
+        )
+        return response.choices[0].message.content
 
     except Exception as e:
         print(f"ERREUR OpenRouter: {e}")
         return "Désolée, un problème technique m'empêche de répondre."
 
-@current_app.route('/chat', methods=['POST'])
+@blueprint.route('/chat', methods=['POST'])
 def chat():
     data = request.json
     user_id = data.get('userId')

@@ -143,4 +143,5 @@ Thumbs.db
 cle_api.txt
 google_cle.txt
 provi_key.txt
+node_modules/
 test_key.py

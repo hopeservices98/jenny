@@ -3,3 +3,4 @@ Werkzeug==2.2.3
 requests
 Flask-SQLAlchemy
 gunicorn
+openai>=1.0.0

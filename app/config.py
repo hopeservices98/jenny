@@ -14,7 +14,7 @@ class Config:
     
     # OpenRouter API (avec Grok gratuit)
     OPENROUTER_API_KEY = os.environ.get('OPENROUTER_API_KEY')
-    OPENROUTER_MODEL = os.environ.get('OPENROUTER_MODEL') or "meta-llama/llama-3.2-3b-instruct:free"  # Modèle gratuit alternatif sur OpenRouter
+    OPENROUTER_MODEL = "meta-llama/llama-3.2-3b-instruct:free"  # Modèle gratuit alternatif sur OpenRouter
     
     # Image Directory
     IMAGE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'images'))

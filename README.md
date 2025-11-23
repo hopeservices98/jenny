@@ -38,8 +38,8 @@ Jenny est une application web de chat IA thérapeutique et confidentielle, conç
 3. **Configurer l'API** :
    - Obtenir une clé API gratuite sur [OpenRouter](https://openrouter.ai/).
    - Définir la variable d'environnement `OPENROUTER_API_KEY` avec votre clé.
-     - Exemple (Windows) : `set OPENROUTER_API_KEY=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`
-     - Exemple (Linux/Mac) : `export OPENROUTER_API_KEY=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`
+     - Exemple (Windows) : `set OPENROUTER_API_KEY=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`
+     - Exemple (Linux/Mac) : `export OPENROUTER_API_KEY=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`
    - Optionnellement, ajuster `OPENROUTER_MODEL` dans `app/config.py` (défaut: x-ai/grok-4.1-fast:free).
 
 4. **Lancer l'application** :

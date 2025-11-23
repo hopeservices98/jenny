@@ -18,3 +18,6 @@ def create_app():
         db.create_all()
 
         return app
+
+# For gunicorn deployment
+app = create_app()

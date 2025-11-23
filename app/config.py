@@ -13,8 +13,8 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     # OpenRouter API (avec Grok gratuit)
-    OPENROUTER_API_KEY = "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"
-    OPENROUTER_MODEL = "x-ai/grok-4.1-fast:free"  # Modèle Grok gratuit sur OpenRouter
+    OPENROUTER_API_KEY = os.environ.get('OPENROUTER_API_KEY')
+    OPENROUTER_MODEL = os.environ.get('OPENROUTER_MODEL') or "x-ai/grok-4.1-fast:free"  # Modèle Grok gratuit sur OpenRouter
     
     # Image Directory
     IMAGE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'images'))
